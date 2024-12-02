@@ -1,7 +1,7 @@
 import pickle
 
-from seminar.group914.seminar_9.car import Car
-from seminar.group914.seminar_9.repo_memory import CarMemoryRepo
+from seminar.group914.seminar_9.domain.car import Car
+from seminar.group914.seminar_9.repository.repo_memory import CarMemoryRepo
 
 
 class CarBinaryRepo(CarMemoryRepo):
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     # print(type(data))
     # print(data)
 
-    repo = CarMemoryRepo()
+    repo = CarBinaryRepo()
     #
     repo.add(Car(100, "AB 44 QWE", "red"))
     print(len(repo))

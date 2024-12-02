@@ -1,4 +1,4 @@
-from seminar.group914.seminar_9.car import Car
+from seminar.group913.seminar_9.domain.car import Car
 
 
 class RepositoryError(Exception):
@@ -72,10 +72,10 @@ def test_car_memory_repo():
     repo = CarMemoryRepo()
     assert len(repo) == 0
 
-    car_1 = Car(100, "CJ 01 RTY", "red")
+    car_1 = Car(100, "CJ 01 RTY", "Toyota Corolla")
     repo.add(car_1)
     assert len(repo) == 1
-    car_2 = Car(101, "AB 01 RTY", "lime")
+    car_2 = Car(101, "AB 01 RTY", "Dacia Jogger")
     repo.add(car_2)
     assert len(repo) == 2
 
