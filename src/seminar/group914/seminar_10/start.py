@@ -4,6 +4,8 @@ from faker.proxy import Faker
 
 from seminar.group914.seminar_10.domain.client import Client
 from seminar.group914.seminar_10.domain.rental import Rental
+from seminar.group914.seminar_10.repository.memory_repo import MemoryRepository
+from seminar.group914.seminar_10.repository.text_repo import CarTextFileRepository, RentalTextFileRepository
 from seminar.group914.seminar_9.domain.car import Car
 
 from random import choice, randint
@@ -38,6 +40,25 @@ def generate_rentals(car_list: [Car], client_list: [Client]):
 
     return rental_list
 
+
 if __name__ == "__main__":
-    for r in generate_rentals(generate_cars(), generate_clients()):
-        print(r)
+    # for r in generate_rentals(generate_cars(), generate_clients()):
+    #     print(r)
+
+    # car_list = generate_cars()
+    # car_text_repo = CarTextFileRepository()
+    # for car in car_text_repo:
+    #     print(car)
+
+    client_repo = MemoryRepository()
+    for client in generate_clients():
+        client_repo.add(client)
+
+    car_repo = CarTextFileRepository()
+
+    rental_text_repo = RentalTextFileRepository(car_repo, client_repo)
+    for rent in rental_text_repo:
+        print(rent)
+
+    # for rental in generate_rentals(generate_cars(), generate_clients()):
+    #     rental_text_repo.add(rental)
