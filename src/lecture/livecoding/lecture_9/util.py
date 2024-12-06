@@ -1,12 +1,13 @@
 from lecture.livecoding.lecture_9.domain.ingredient import Ingredient
 from lecture.livecoding.lecture_9.domain.recipe import Recipe
-from lecture.livecoding.lecture_9.repository import IngredientTextFileRepo
+
+from lecture.livecoding.lecture_9.repo.bakery_memory_repo import BakeryObjectMemoryRepo
+from lecture.livecoding.lecture_9.repo.ingredient_text_repo import IngredientTextFileRepo
+from lecture.livecoding.lecture_9.repo.recipe_text_repo import RecipeTextFileRepo
 
 
 # TODO Ingredient id's must be consistent with those loaded from the ingredient repository
 def create_recipes():
-    ingredient_repo = IngredientTextFileRepo()
-
     """
     Bread
 
@@ -53,6 +54,10 @@ def create_recipes():
 
 
 if __name__ == "__main__":
-    recipes_list = create_recipes()
-    for recipe in recipes_list:
+    ingredient_repo = IngredientTextFileRepo()
+    recipe_repo = RecipeTextFileRepo(ingredient_repo)
+
+    # recipes_list = create_recipes()
+    for recipe in recipe_repo:
         print(recipe)
+        # recipe_repo.add(recipe)
