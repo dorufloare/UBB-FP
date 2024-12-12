@@ -1,4 +1,5 @@
 from seminar.group913.seminar_11.domain.client import Client
+from seminar.group913.seminar_11.service.undo_service import FunctionCall, Operation
 
 
 class ClientService:
@@ -20,10 +21,20 @@ class ClientService:
         """
         client = self._repository.delete(client_id)
 
+        """
+            2. Record how to undo/redo the operation
+        """
+        # NOTE Only record successfully completed operations
+        undo_function = FunctionCall(self._repository.store, client)
+        redo_function = FunctionCall(self._repository.delete, client_id)
+        self._undo_service.record(Operation(undo_function, redo_function))
+
         '''
             2. Delete their rentals
             NB! This implementation is not transactional, i.e. the two delete operations are performed separately
         '''
+        # TODO When a client is deleted, their rentals should be deleted too
+        # When client deletion is reversed with undo(), the rentals must be added back :)
         rentals = self._rental_service.filter_rentals(client, None)
         for rent in rentals:
             self._rental_service.delete_rental(rent.getId(), False)

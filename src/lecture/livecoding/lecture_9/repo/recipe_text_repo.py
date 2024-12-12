@@ -5,13 +5,14 @@ from lecture.livecoding.lecture_9.repo.bakery_memory_repo import BakeryObjectMem
 
 
 class RecipeTextFileRepo(BakeryObjectMemoryRepo):
-    def __init__(self, ingredient_repo: BakeryObjectMemoryRepo):
+    def __init__(self, file_name: str, ingredient_repo: BakeryObjectMemoryRepo):
         super().__init__()
+        self.__file_name = file_name
         self.__ingredient_repo = ingredient_repo
         self.__load()
 
     def __load(self):
-        fin = open("recipes.txt", "rt")
+        fin = open(self.__file_name, "rt")
         line = fin.readline()
         while len(line) > 0:
             tokens = line.split(",")
@@ -37,7 +38,7 @@ class RecipeTextFileRepo(BakeryObjectMemoryRepo):
         self.__save()
 
     def __save(self):
-        fout = open("recipes.txt", "wt")
+        fout = open(self.__file_name, "wt")
         for r in self._data.values():
             recipe_str = f"{r.id},{r.name},"
             for ingredient in r.ingredients:

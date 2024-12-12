@@ -69,3 +69,17 @@ def undo_example_medium():
 
 
 undo_example_medium()
+
+# def fun(x, y, z):
+#     print(x, y, z)
+
+
+# fun(1, 2, 3)
+
+# Command design pattern (call the function sometimge later, we don't know when ...)
+# when the user makes an operation for which we want to enable undo/redo we remember it as below
+# operation = fun  # type of var operation is function
+# parameters = 3, 4, 5
+
+# when we need to undo/redo, we call the function
+# operation(*parameters)

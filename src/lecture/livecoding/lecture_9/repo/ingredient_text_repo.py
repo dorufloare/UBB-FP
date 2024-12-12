@@ -4,8 +4,9 @@ from lecture.livecoding.lecture_9.repo.bakery_memory_repo import BakeryObjectMem
 
 
 class IngredientTextFileRepo(BakeryObjectMemoryRepo):
-    def __init__(self):
+    def __init__(self, file_name: str):
         super().__init__()
+        self.__file_name = file_name
         self.__load_file()
 
     def add(self, bakery_object: Ingredient):
@@ -19,7 +20,7 @@ class IngredientTextFileRepo(BakeryObjectMemoryRepo):
         return bakery_object
 
     def __load_file(self):
-        fin = open("ingredients.txt", "rt")
+        fin = open(self.__file_name, "rt")
         line = fin.readline()
         while len(line) > 0:
             tokens = line.split(",")
@@ -27,7 +28,7 @@ class IngredientTextFileRepo(BakeryObjectMemoryRepo):
             line = fin.readline()
 
     def __save_file(self):
-        fout = open("ingredients.txt", "wt")  # w - write, t - text
+        fout = open(self.__file_name, "wt")  # w - write, t - text
         for ingr in self._data.values():
             fout.write(str(ingr.id) + "," + ingr.name + "," + str(ingr.quantity) + "\r\n")
             fout.close()

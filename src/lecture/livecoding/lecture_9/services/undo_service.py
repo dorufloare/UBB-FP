@@ -1,3 +1,29 @@
+"""
+    There are 2 ways to implement undo/redo in the real world:
+        1. Using the Memento design pattern (https://refactoring.guru/design-patterns/memento)
+        2. Using the Command design pattern (https://refactoring.guru/design-patterns/command)
+            1. You need to create a list/stack of the program's operations that support
+            undo/redo (only those operations that change the contents of a repository do)
+            2. Undo/redo is global within the program, and there is a single list/stack holding
+            the operations that the user carried out
+            3. Undo/redo is lost when the program is stopped
+            4. For each operation that needs to be recorded:
+                - Figure out the repository-level oeprations that undo it and redo it
+                    - redo is the operation itself :)
+                - store the repository operation together with the parameters in a list/stack
+                - when the user requires undo/redo, look at the current element in the list/stack
+                and revert that operation
+            example code: group 913 seminar (a bit incomplete)
+
+                UndoService - central class that handles undo() and redo() for all entities
+                            - all services have a link to the undo_service
+                            - each time the user does something, the undo_service is told how to
+                            undo/redo that operation (classes CascadedOperation, Operation, FunctionCall)
+                UndoService.__redo_stack and __undo_stack keep the list of operations that can be reverted
+                            or redone
+"""
+
+
 class FunctionCall:
     """
     Objects of this class encode calling a function with given parameters
