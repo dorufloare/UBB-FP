@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 from seminar.group914.seminar_12.board import ComputerBoard, PlayerBoard, ShipDirection
 
@@ -21,9 +21,17 @@ class ComputerStrategy:
         """
         Computer's strategy for placing ships on its own board
         """
-        # TODO Randomize me
-        self.__computer_board.place_ship(1, 1, ShipDirection.RIGHT)
-        self.__computer_board.place_ship(2, 3, ShipDirection.RIGHT)
+        ships_to_place = 2
+        while ships_to_place > 0:
+            x = randint(0, 5)
+            y = randint(0, 5)
+            direction = choice((ShipDirection.RIGHT, ShipDirection.LEFT, ShipDirection.UP, ShipDirection.DOWN))
+            try:
+                self.__computer_board.place_ship(x, y, direction)
+                ships_to_place -= 1
+            except ValueError:
+                # invalid ship placement
+                pass
 
     def fire(self):
         """
